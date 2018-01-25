@@ -1,6 +1,3 @@
-# Freeswitch-installation-on-Linux-Debian-server
-Description : Installing Freeswitch which should act as a SIP Registrar and accept both SIP UDP and SIP TCP connections.  Default userâ€™s (1000,1001) of freeswitch should be able to register to freeswitch for the sip registration. We can use Zoiper/SJ Phone/pjsip/xlite/linphone etc for the registration.
-
 Hello everyone, I am Gaurav with VOIP development experience. Today we will be learning "How to Install a Freeswitch on Linux system and configuring freeswitch default users." Its very easy just follow the below steps. 
 
 *************************************************************************
@@ -19,10 +16,10 @@ Install all the dependencies needed by freeswitch
 # sudo apt-get install -y libyuv-dev libvpx2-dev liblua5.2-dev libvpx2-dev libvpx2 zlib1g-dev libspeex1 libopus-dev libsndfile-dev autoconf automake devscripts gawk g++ git-core 'libjpeg-dev|libjpeg62-turbo-dev' libncurses5-dev 'libtool-bin|libtool' make python-dev gawk pkg-config libtiff5-dev libperl-dev libgdbm-dev libdb-dev gettext libssl-dev libcurl4-openssl-dev libpcre3-dev libspeex-dev libspeexdsp-dev libsqlite3-dev libedit-dev libldns-dev libpq-dev yasm
 
 3. Download freeswitch
-Create the source folder of your choice and download freeswitch in this location
+Create the source folder of your choice and download freeswitch code (shared above) in this location
 -----------------------------------------------------------------------------------------
 # mkdir /root/sources && mkdir /usr/local/switch && cd /root/sources
-# git clone -b v1.6 https://freeswitch.org/stash/scm/fs/freeswitch.git
+
 
 4. Compile/Install freeswitch
 To compile freeswitch, navigate to the freeswitch source directory.
@@ -243,24 +240,24 @@ Freeswitch is now installed in your system. Wasn't it easy ??
 ADDING FREESWITCH USERS
 *************************************************************************
 1. To add a freeswitch user, navigate to /usr/local/switch/etc/freeswitch/directory/default directory and create a file by the name 1000.xml and add the following.
-# cd /etc/freeswitch/directory/default
+# cd /usr/local/switch/etc/freeswitch/directory/default
 # vi 1000.xml
 
 <include>
-<user id=â€1000â€³>
+<user id=”1000?>
 <params>
-<param name=â€passwordâ€ value=â€default.123â€³/>
-<param name=â€vm-passwordâ€ value=â€1000â€³/>
+<param name=”password” value=”default.1000?/>
+<param name=”vm-password” value=”1000?/>
 </params>
 <variables>
-<variable name=â€toll_allowâ€ value=â€domestic,international,localâ€/>
-<variable name=â€accountcodeâ€ value=â€1000â€³/>
-<variable name=â€user_contextâ€ value=â€defaultâ€/>
-<variable name=â€effective_caller_id_nameâ€ value=â€Extension 1000â€³/>
-<variable name=â€effective_caller_id_numberâ€ value=â€1000â€³/>
-<variable name=â€outbound_caller_id_nameâ€ value=â€$${outbound_caller_name}â€/>
-<variable name=â€outbound_caller_id_numberâ€ value=â€$${outbound_caller_id}â€/>
-<variable name=â€callgroupâ€ value=â€techsupportâ€/>
+<variable name=”toll_allow” value=”domestic,international,local”/>
+<variable name=”accountcode” value=”1000?/>
+<variable name=”user_context” value=”default”/>
+<variable name=”effective_caller_id_name” value=”Extension 1000?/>
+<variable name=”effective_caller_id_number” value=”1000?/>
+<variable name=”outbound_caller_id_name” value=”$${outbound_caller_name}”/>
+<variable name=”outbound_caller_id_number” value=”$${outbound_caller_id}”/>
+<variable name=”callgroup” value=”techsupport”/>
 </variables>
 </user>
 </include>
@@ -270,23 +267,35 @@ ADDING FREESWITCH USERS
 
 3. Similarly, create another user in 1001.xml
 <include>
-<user id=â€1001â€³>
+<user id=”1001?>
 <params>
-<param name=â€passwordâ€ value=â€edmund1001â€³/>
-<param name=â€vm-passwordâ€ value=â€1001â€³/>
+<param name=”password” value=”default.1001?/>
+<param name=”vm-password” value=”1001?/>
 </params>
 <variables>
-<variable name=â€toll_allowâ€ value=â€domestic,international,localâ€/>
-<variable name=â€accountcodeâ€ value=â€1001â€³/>
-<variable name=â€user_contextâ€ value=â€defaultâ€/>
-<variable name=â€effective_caller_id_nameâ€ value=â€Extension 1001â€³/>
-<variable name=â€effective_caller_id_numberâ€ value=â€1001â€³/>
-<variable name=â€outbound_caller_id_nameâ€ value=â€$${outbound_caller_name}â€/>
-<variable name=â€outbound_caller_id_numberâ€ value=â€$${outbound_caller_id}â€/>
-<variable name=â€callgroupâ€ value=â€techsupportâ€/>
+<variable name=”toll_allow” value=”domestic,international,local”/>
+<variable name=”accountcode” value=”1001?/>
+<variable name=”user_context” value=”default”/>
+<variable name=”effective_caller_id_name” value=”Extension 1001?/>
+<variable name=”effective_caller_id_number” value=”1001?/>
+<variable name=”outbound_caller_id_name” value=”$${outbound_caller_name}”/>
+<variable name=”outbound_caller_id_number” value=”$${outbound_caller_id}”/>
+<variable name=”callgroup” value=”techsupport”/>
 </variables>
 </user>
 </include>
 
 4. Change the ownership.
 # chown freeswitch:daemon 1001.xml
+
+
+Finally you can test this solution by using any SIP phones (like : Zoiper/SJ Phone/pjsip/xlite/linphone, etc).
+Below are the details to register for the installed Freeswitch
+
+User     : 1000
+Password : default.1000
+Domain   : demohost.hostingwikipedia.com
+
+User     : 1001
+Password : default.1001
+Domain   : demohost.hostingwikipedia.com
